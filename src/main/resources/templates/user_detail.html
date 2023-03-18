@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザ詳細情報</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+</head>
+<body>
+<div style="
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+">
+    <h3>ユーザ詳細情報</h3>
+    <table class="pure-table pure-table-bordered">
+        <tbody>
+        <tr>
+            <td>
+                ユーザ名
+            </td>
+            <td sec:authentication="name">
+            </td>
+        </tr>
+        <tr class="pure-table-odd">
+            <td>BASICロール</td>
+            <td>
+                <span sec:authorize="hasRole('ROLE_BASIC')">〇</span>
+                <span sec:authorize="!hasRole('ROLE_BASIC')">×</span>
+            </td>
+        </tr>
+        <tr>
+            <td>STAFFロール</td>
+            <td>
+                <span sec:authorize="hasRole('ROLE_STAFF')">〇</span>
+                <span sec:authorize="!hasRole('ROLE_STAFF')">×</span>
+            </td>
+        </tr>
+        <tr class="pure-table-odd">
+            <td>ADMINロール</td>
+            <td>
+                <span sec:authorize="hasRole('ROLE_ADMIN')">〇</span>
+                <span sec:authorize="!hasRole('ROLE_ADMIN')">×</span>
+            </td>
+        </tr>
+        <tr>
+            <td>ロールリスト</td>
+            <td th:text="${role}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/logout}" style="margin:10px">
+        <input type="submit" value="ログアウト">
+    </form>
+</div>
+</body>
+</html>
